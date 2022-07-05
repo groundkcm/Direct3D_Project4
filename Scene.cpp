@@ -386,6 +386,7 @@ bool CScene::ProcessInput(UCHAR *pKeysBuffer)
 
 void CScene::Collision()
 {
+	static int crashnum{};
 	m_pPlayer->m_xmOOBB = BoundingOrientedBox(XMFLOAT3(m_pPlayer->GetPosition()), XMFLOAT3(25.0f, 10.0f, 35.0f), XMFLOAT4(0.0f, 0.0f, 0.0f, 1.0f));
 	m_pPlayer->m_pObjectCollided = NULL;
 
@@ -400,6 +401,7 @@ void CScene::Collision()
 				m_ppGameObjects[i]->rcrash = true;
 			else if (m_pPlayer->GetPosition().x < m_ppGameObjects[i]->GetPosition().x) 
 				m_ppGameObjects[i]->lcrash = true;
+			crashnum += 1;
 		}
 		for (int j = (i + 1); j < m_nGameObjects; j++)
 		{
